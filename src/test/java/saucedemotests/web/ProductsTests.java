@@ -37,20 +37,20 @@ public class ProductsTests extends SauceDemoBaseWebTest {
     @Test
     public void userDetailsAdded_when_checkoutWithValidInformation() {
        // Add products to shopping cart
-        inventoryPage.addProductsByTitle(BACKPACK_TITLE); // Добавяме продукти в количката
+        inventoryPage.addProductsByTitle(BACKPACK_TITLE);
 
         // Click on shopping cart link to go to cart page
-        shoppingCartPage.clickShoppingCartLink(); // Отиваме на страницата на количката
+        shoppingCartPage.clickShoppingCartLink();
 
         // Assert that the shopping cart has 1 item
         Assertions.assertEquals(1, shoppingCartPage.getShoppingCartItems().size(), "Shopping cart should have 1 item");
 
         // Go to checkout
-        shoppingCartPage.clickCheckout(); // Отиваме на страницата за плащане
+        shoppingCartPage.clickCheckout();
 
         // Fill form with shipping details
-        checkoutYourInformationPage.fillShippingDetails("John", "Doe", "12345"); // Попълваме формата
-        checkoutYourInformationPage.clickContinue(); // Продължаваме към прегледа на поръчката
+        checkoutYourInformationPage.fillShippingDetails("John", "Doe", "12345");
+        checkoutYourInformationPage.clickContinue();
 
         // Assert Cart Items number on the checkout overview page
         Assertions.assertEquals(1, checkoutOverviewPage.getShoppingCartItems().size(), "Checkout should have 1 item");
@@ -66,15 +66,15 @@ public class ProductsTests extends SauceDemoBaseWebTest {
     @Test
     public void orderCompleted_when_addProduct_and_checkout_withConfirm(){
         inventoryPage.addProductsByTitle(BACKPACK_TITLE,SHIRT_TITLE);
-        inventoryPage.clickShoppingCartLink(); // Отиваме на количката
+        inventoryPage.clickShoppingCartLink();
 
         // Go to Billing Info
-        shoppingCartPage.clickCheckout(); // Отиваме на страницата за плащане
-        checkoutYourInformationPage.fillShippingDetails("John", "Doe", "12345"); // Попълваме формуляра
-        checkoutYourInformationPage.clickContinue(); // Продължаваме
+        shoppingCartPage.clickCheckout();
+        checkoutYourInformationPage.fillShippingDetails("John", "Doe", "12345");
+        checkoutYourInformationPage.clickContinue();
 
         // Complete Order
-        checkoutOverviewPage.clickFinish(); // Завършваме поръчката
+        checkoutOverviewPage.clickFinish();
 
         // Assert Shopping cart is empty
         Assertions.assertEquals(0, shoppingCartPage.getShoppingCartItems().size(), "Shopping cart should be empty after completing the order");
