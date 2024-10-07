@@ -2,16 +2,21 @@ package com.jira.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
 import static testframework.core.BaseWebTest.driver;
 
-public class AtlassianHome {
+public class AtlassianHome extends BaseJiraPage {
     //Locators
     private final By welcomeMessage = By.xpath("//div[@class='css-1ljhloz']//h1[@class='css-xtidjr']");
-    private final By projectAppLocator = By.cssSelector("div.css-17oiokn");
+    private final By projectAppLocator = By.className("css-1celsnm");
+    ;
 
+    public AtlassianHome() {
+        super("/");
+    }
 
     //Action
     public String getWelcomeMessage() {
@@ -21,15 +26,10 @@ public class AtlassianHome {
     }
 
     public void navigateToProjectApp() {
-        List<WebElement> projectAppElements = driver().findElements(projectAppLocator);
-
-        if (!projectAppElements.isEmpty()) {
-            WebElement appElement = projectAppElements.get(0);
-//            driverWait().until(ExpectedConditions.visibilityOf(appElement));
-            appElement.click();
-        } else {
-            System.out.println("No elements were found with the locator projectAppLocator.");
-        }
+        driverWait().until(ExpectedConditions.visibilityOfElementLocated(projectAppLocator));
+        WebElement jiraBtn = driver().findElements(projectAppLocator).stream().filter(e -> e.getText().equals("Jira")).
+                findFirst().get();
+        jiraBtn.click();
     }
 }
 
